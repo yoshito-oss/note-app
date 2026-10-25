@@ -54,37 +54,39 @@ const App = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container flex">
       {/* サイドバーエリア */}
-      <div className="sidebar">
-        <button id="create" onClick={handleAddNote}>
+      <div className="sidebar bg-[#f4f4f4] p-5 h-screen overflow-y-auto shrink-0 basis-[250px]">
+        <button className="bg-[#3498db] text-white px-5 py-2.5 border-0 rounded-[5px] cursor-pointer text-base hover:opacity-80" id="create" onClick={handleAddNote}>
           ノート追加
         </button>
-        <ul>
+        <ul className="list-none mt-2.5">
           {notes.map((note) => (
             <li
               key={note.id}
-              className={selectedNote.id === note.id ? "selected" : ""}
+              className={`flex items-center rounded-[5px] p-2.5 [&_*]:cursor-pointer ${selectedNote.id === note.id ? "bg-[#d2e0e6]" : ""}`}
             >
               <button
                 onClick={() => handleNoteDelete(note.id)}
-                className="delete"
+                className="delete mr-2 shrink-0 bg-[#ff6b6b] text-white border-0 rounded-[5px] px-5 py-2.5 border-0 rounded-[5px] cursor-pointer text-base hover:opacity-80"
               >
                 削除
               </button>
-              <span onClick={() => handleSelectNote(note)}>{note.text}</span>
+              <span className="whitespace-nowrap overflow-hidden text-ellipsis grow" onClick={() => handleSelectNote(note)}>
+                {note.text}
+              </span>
             </li>
           ))}
         </ul>
       </div>
 
       {/* メインエリア */}
-      <div className="main">
+      <div className="main p-5 grow">
         {selectedNote ? (
           <>
-            <h2>内容</h2>
-            <textarea value={editedText} onChange={handleTextChange} />
-            <button className="save" onClick={handleSave}>
+            <h2 className="mb-5">内容</h2>
+            <textarea className="w-full h-[400px] p-[15px] text-base border-0 box-border resize-none focus:outline-none focus:shadow-none focus:border-0" value={editedText} onChange={handleTextChange} />
+            <button className="save bg-[#4CAF50] text-white border-0 rounded-[5px] py-2 px-4 hover:bg-[#45a049]" onClick={handleSave}>
               保存
             </button>
           </>
